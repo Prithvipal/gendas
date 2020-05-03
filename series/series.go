@@ -1,64 +1,73 @@
 package series
 
 import (
-	"github.com/Prithvipal/godf/series/types"
+	"strings"
+	"unicode/utf8"
 )
 
-// New ...
-func New(data interface{}, name string) Series {
-	se := Series{
-		Name: name,
-	}
-
-	switch data.(type) {
-	case []int:
-		se.Dtype = types.Int
-		values := data.([]int)
-		se.Elements = make([]Element, len(values))
-		for i, v := range values {
-			intEle := &IntElement{}
-			intEle.Set(v)
-			se.Elements[i] = intEle
-		}
-	case []float64:
-		se.Dtype = types.Float
-		values := data.([]float64)
-		se.Elements = make([]Element, len(values))
-		for i, v := range values {
-			floatEle := &FloatElement{}
-			floatEle.Set(v)
-			se.Elements[i] = floatEle
-		}
-	case []string:
-		se.Dtype = types.String
-		values := data.([]string)
-		se.Elements = make([]Element, len(values))
-		for i, v := range values {
-			stringEle := &StringElement{}
-			stringEle.Set(v)
-			se.Elements[i] = stringEle
-		}
-	case []bool:
-		se.Dtype = types.Bool
-		values := data.([]bool)
-		se.Elements = make([]Element, len(values))
-		for i, v := range values {
-			boolEle := &BoolElement{}
-			boolEle.Set(v)
-			se.Elements[i] = boolEle
-		}
-	}
-
-	//fmt.Println(se)
-	return se
+// Series ...
+type Series struct {
+	Name     string
+	Elements Elements
+	Dtype    string
 }
 
-func (ser Series) getColumnWidth() int {
-	columnWidth := len(ser.Name)
-	for _, v := range ser.Elements {
-		if v.Len() > columnWidth {
-			columnWidth = v.Len()
-		}
-	}
-	return columnWidth
+// Len ...
+func (s Series) Len() int {
+	return len(s.Elements)
 }
+
+// Records  ...
+func (s Series) Records() []string {
+	width := s.getColumnWidth()
+	records := make([]string, s.Len()+1)
+	records[0] = addLeftPadding(s.Name, width)
+	for i, r := range s.Elements {
+		record := addLeftPadding(r.Val(), width)
+		records[i+1] = record
+	}
+	return records
+}
+
+func (s Series) String() string {
+	records := s.Records()
+	return strings.Join(records, "\n")
+}
+
+func addLeftPadding(s string, nchar int) string {
+	if utf8.RuneCountInString(s) < nchar {
+		return strings.Repeat(" ", nchar-utf8.RuneCountInString(s)+1) + s
+	}
+	return " " + s
+}
+
+// SetValues ...
+// func (s Series) SetValues(values []types.BasicType) {
+// 	for i, val := range values {
+// 		if s.Dtype == types.Int {
+// 			s.elements[i].Set(val)
+// 		}
+// 	}
+// }
+
+// Elements ...
+type Elements []Element
+
+// Element ...
+type Element interface {
+	Set(interface{})
+	Len() int
+	Val() string
+}
+
+// Conf ...
+type Conf struct {
+	inferName bool
+}
+
+// ConfOption ...
+type ConfOption struct {
+}
+
+// SetConfOption ...
+type SetConfOption func(*ConfOption)
