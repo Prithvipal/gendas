@@ -5,7 +5,7 @@ import (
 )
 
 // New ...
-func New(data interface{}, name string) Series {
+func New(name string, data interface{}) Series {
 	se := Series{
 		Name: name,
 	}
