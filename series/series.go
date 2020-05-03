@@ -1,8 +1,6 @@
 package series
 
 import (
-	"fmt"
-
 	"github.com/Prithvipal/godf/series/types"
 )
 
@@ -16,15 +14,24 @@ func New(data interface{}, name string) Series {
 	case []int:
 		se.Dtype = types.Int
 		values := data.([]int)
-		se.elements = make([]Element, len(values))
+		se.Elements = make([]Element, len(values))
 		for i, v := range values {
-			intEle := IntElement{}
+			intEle := &IntElement{}
 			intEle.Set(v)
-			se.elements[i] = intEle
+			se.Elements[i] = intEle
+		}
+	case []float64:
+		se.Dtype = types.Float
+		values := data.([]float64)
+		se.Elements = make([]Element, len(values))
+		for i, v := range values {
+			floatEle := &FloatElement{}
+			floatEle.Set(v)
+			se.Elements[i] = floatEle
 		}
 	}
 
-	fmt.Println(se)
+	//fmt.Println(se)
 	return se
 }
 

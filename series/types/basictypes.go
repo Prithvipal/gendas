@@ -13,7 +13,8 @@ type IntType int
 // 	return ""
 // }
 
-type floatType float32
+// FloatType ...
+type FloatType float64
 
 type stringType string
 

@@ -3,7 +3,7 @@ package series
 // Series ...
 type Series struct {
 	Name     string
-	elements Elements
+	Elements Elements
 	Dtype    string
 }
 

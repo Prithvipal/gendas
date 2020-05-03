@@ -7,6 +7,9 @@ import (
 )
 
 func main() {
-	se := series.New([]int{1, 2, 3, 4}, "A")
+	se := series.New([]float64{1.1, 2.2, 3.4, 4.5}, "A")
+	// for _, ele := range se.Elements {
+	// 	fmt.Println(ele)
+	// }
 	fmt.Println(se)
 }

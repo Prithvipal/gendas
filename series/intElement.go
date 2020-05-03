@@ -1,6 +1,8 @@
 package series
 
 import (
+	"fmt"
+
 	"github.com/Prithvipal/godf/series/types"
 )
 
@@ -10,9 +12,11 @@ type IntElement struct {
 }
 
 // Set ...
-func (e IntElement) Set(data interface{}) {
+func (e *IntElement) Set(data interface{}) {
 	x := data.(int)
 	e.data = types.IntType(x)
-	//fmt.Println(types.IntType)
-	//fmt.Println(types.IntType(x))
+}
+
+func (e IntElement) String() string {
+	return fmt.Sprint(int(e.data))
 }
