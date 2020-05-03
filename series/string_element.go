@@ -17,6 +17,16 @@ func (e *StringElement) Set(data interface{}) {
 	e.data = types.StringType(x)
 }
 
+// Len ...
+func (e *StringElement) Len() int {
+	return len(e.String())
+}
+
+// Val ...
+func (e *StringElement) Val() string {
+	return e.String()
+}
+
 func (e StringElement) String() string {
 	return fmt.Sprint(string(e.data))
 }

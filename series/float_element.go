@@ -17,6 +17,16 @@ func (e *FloatElement) Set(data interface{}) {
 	e.data = types.FloatType(x)
 }
 
+// Len ...
+func (e *FloatElement) Len() int {
+	return len(e.String())
+}
+
+// Val ...
+func (e *FloatElement) Val() string {
+	return e.String()
+}
+
 // String ...
 func (e FloatElement) String() string {
 	return fmt.Sprint(float64(e.data))

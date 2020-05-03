@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	se := series.New([]bool{false, true, true, false}, "A")
+	se := series.New([]int{123, 2134, 54, 34234}, "Num")
 	// for _, ele := range se.Elements {
 	// 	fmt.Println(ele)
 	// }

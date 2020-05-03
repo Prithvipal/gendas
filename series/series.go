@@ -53,9 +53,12 @@ func New(data interface{}, name string) Series {
 	return se
 }
 
-// func getElements(values []interface{}) {
-// 	eles := make([]Element, len(values))
-// 	for i, v := range values {
-// 		eles[i] = v
-// 	}
-// }
+func (ser Series) getColumnWidth() int {
+	columnWidth := len(ser.Name)
+	for _, v := range ser.Elements {
+		if v.Len() > columnWidth {
+			columnWidth = v.Len()
+		}
+	}
+	return columnWidth
+}
