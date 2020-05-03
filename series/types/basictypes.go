@@ -16,9 +16,11 @@ type IntType int
 // FloatType ...
 type FloatType float64
 
-type stringType string
+// StringType ...
+type StringType string
 
-type boolType bool
+// BoolType ...
+type BoolType bool
 
 const (
 	// Int ...

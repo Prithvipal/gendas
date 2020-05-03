@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	se := series.New([]float64{1.1, 2.2, 3.4, 4.5}, "A")
+	se := series.New([]string{"A1", "B2", "C4", "D5"}, "A")
 	// for _, ele := range se.Elements {
 	// 	fmt.Println(ele)
 	// }

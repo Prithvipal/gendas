@@ -29,6 +29,15 @@ func New(data interface{}, name string) Series {
 			floatEle.Set(v)
 			se.Elements[i] = floatEle
 		}
+	case []string:
+		se.Dtype = types.String
+		values := data.([]string)
+		se.Elements = make([]Element, len(values))
+		for i, v := range values {
+			stringEle := &StringElement{}
+			stringEle.Set(v)
+			se.Elements[i] = stringEle
+		}
 	}
 
 	//fmt.Println(se)
