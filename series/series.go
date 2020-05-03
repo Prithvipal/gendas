@@ -38,6 +38,15 @@ func New(data interface{}, name string) Series {
 			stringEle.Set(v)
 			se.Elements[i] = stringEle
 		}
+	case []bool:
+		se.Dtype = types.Bool
+		values := data.([]bool)
+		se.Elements = make([]Element, len(values))
+		for i, v := range values {
+			boolEle := &BoolElement{}
+			boolEle.Set(v)
+			se.Elements[i] = boolEle
+		}
 	}
 
 	//fmt.Println(se)
